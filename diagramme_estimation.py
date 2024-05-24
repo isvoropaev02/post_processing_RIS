@@ -12,8 +12,8 @@ def diagramma_estimation(phases, amplitudes=None):
     theta = np.linspace(-90, 90, 200)
     k = 2*np.pi * f / c
 
-    #dy = 2*np.pi/(k*np.sin(np.pi/6)) / 6
-    dy = 0.005 # m
+    dy = 2*np.pi/(k*np.sin(np.pi/6)) / 6
+    #dy = 0.005 # m
 
     if amplitudes == None:
         dn_target = np.zeros(theta.shape[0], dtype=complex)
@@ -36,22 +36,23 @@ def diagramma_estimation(phases, amplitudes=None):
 
 theta1, pat_ideal = diagramma_estimation(np.array([180, 120, 60, 0, -60, -120]))
 #theta1, pat_ideal = diagramma_estimation(np.array([-120, -60, 0, 60, 120, 180]))
-#theta2, pat_kvant = diagramma_estimation(np.array([110, 110, 110, 0, 0, 0]))
-theta2, pat_kvant = diagramma_estimation(np.array([180, 180, 0, 0, 0, 180]))
+theta2, pat_kvant = diagramma_estimation(np.array([110, 110, 110, 0, 0, 0]))
+#theta2, pat_kvant = diagramma_estimation(np.array([180, 180, 0, 0, 0, 180]))
 
 fig1 = plt.figure(figsize=(8,5))
 
 ax_1 = fig1.add_subplot(111)
-ax_1.plot(theta1, np.abs(pat_ideal),'r', label='Без квантования фазы')
-ax_1.plot(theta2, np.abs(pat_kvant),'royalblue', label='С квантованием фазы')
+ax_1.plot(theta1, np.abs(pat_ideal),'r', label='В идеальном случае')
+ax_1.plot(theta2, np.abs(pat_kvant),'royalblue', label=r'С 2 значениями фазы, $\Delta\phi \neq 180^\circ$')
 #ax_1.scatter([-27.4], [1], color='k', label='max (-27.4 deg)')
-ax_1.set_ylabel("Абсолютное значение, дН")
-ax_1.set_xlabel(r"$\theta$, град.")
-ax_1.legend()
+ax_1.set_ylabel(r"Абсолютное значение $F(\psi)$")
+ax_1.set_xlabel(r"$\psi$, град.")
+ax_1.legend(loc='upper left')
+ax_1.set_xticks([-90, -60, -30, 0, 30, 60, 90])
 ax_1.grid()
 
 
-fig1.suptitle('Множитель решетки')
+#fig1.suptitle('Множитель решетки')
 plt.show()
 
 #exp_theta, exp_diagr = diagramma_estimation(np.array([180, 180, 180, 0, 0, 180, 180, 0, 0, 0, 180, 180, 0, 0, 0]))
